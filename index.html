@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT 간 수치 키트 결과 확인</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* Light Gray */
+            color: #1e293b; /* Slate 800 */
+        }
+        .section-title {
+            color: #0f766e; /* Teal 700 */
+        }
+        .accent-color {
+            color: #be123c; /* Rose 700 */
+        }
+        .instruction-step {
+            @apply flex items-start space-x-4 p-4 bg-white rounded-lg shadow-md;
+        }
+        .instruction-step .icon {
+            @apply text-3xl text-teal-600 flex-shrink-0;
+        }
+        /* Adjusted: Custom color gradient based on user-provided RGB values, made significantly brighter for visibility */
+        .color-slider-background {
+            background: linear-gradient(to right, 
+                rgb(80, 80, 180),   /* Original reagent color (Blue-ish, low ALT) - Brighter */
+                rgb(100, 40, 150),  /* ~25% - More vibrant purple */
+                rgb(150, 60, 160),  /* ~50% - Pinker purple */
+                rgb(190, 70, 150),  /* ~75% - Rosy purple */
+                rgb(220, 80, 130)   /* 100% - Red-ish (High ALT) - Brighter red-purple */
+            );
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border: 2px solid #0f766e;
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border: 2px solid #0f766e;
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        /* Style for the logo container */
+        .logo-container {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+        }
+        .logo-container img {
+            height: 2.5rem; /* h-10 */
+            width: 2.5rem; /* w-10 */
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header class="relative text-center py-12 md:py-20 bg-teal-700 text-white">
+        <!-- Logo and Text -->
+        <div class="logo-container">
+            <img src="https://placehold.co/100x100/FFFFFF/000?text=Logo" alt="민족사관고등학교 로고"> <!-- Placeholder for your logo image -->
+            <span>민족사관고등학교 융합프로젝트 간질간질</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">ALT 간 수치 키트 결과 확인</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto text-teal-100">간편하게 키트 결과를 입력하고, 예상 ALT 수치와 그 의미를 확인하세요.</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-16 space-y-24">
+        <section id="instructions">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title">키트 사용 방법</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">정확한 결과를 위해 다음 단계를 따라 키트를 사용해주세요.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="instruction-step">
+                    <div class="icon">1️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">손가락 채혈</h3>
+                        <p class="text-slate-600 text-sm">손가락 끝을 동봉된 알코올 솜으로 소독한 후, 채혈침으로 찌릅니다.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">2️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">혈액 채취</h3>
+                        <p class="text-slate-600 text-sm">모세관 튜브를 사용하여 혈액을 정확히 표시된 선(그려진 선 이상)까지 흡입합니다.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">3️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">혈장 분리 준비</h3>
+                        <p class="text-slate-600 text-sm">모세관 튜브를 종이 원심분리기에 삽입합니다. 혈액 샘플이 원심분리기의 중앙에 오도록 위치시킵니다.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">4️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">종이 원심분리기 사용</h3>
+                        <p class="text-slate-600 text-sm">종이 원심분리기를 양손으로 잡고 끈을 당겨 빠르게 회전시킵니다. 혈액이 혈장(투명한 층)과 혈구(붉은 층)로 분리될 때까지 충분히 돌립니다.</p>
+                        <img src="https://i.postimg.cc/BQst1tR2/Kakao-Talk-20250702-205430889.jpg" alt="종이 원심분리기 사용 예시" class="mt-4 rounded-lg shadow-md max-w-xs mx-auto">
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">5️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">시약 혼합</h3>
+                        <p class="text-slate-600 text-sm">분리된 혈장 층 중 투명한 상층액을 동봉된 스포이트(또는 피펫)로 표시된 선까지 흡입한 후, 키트 시약 용기(아이스박스 중간에 부착된 투명한 통)의 뚜껑을 열고 넣습니다.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">6️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">반응 대기</h3>
+                        <p class="text-slate-600 text-sm">용액을 잘 섞은 후, 정확히 10분간 상온에서 반응이 진행되도록 기다립니다.</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <div class="icon">7️⃣</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-1">결과 확인</h3>
+                        <p class="text-slate-600 text-sm">이 웹페이지의 '결과 입력' 섹션에서 색상 슬라이더를 움직여 키트 용액의 최종 색상과 가장 유사하게 맞춰주세요.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="result-input" class="bg-white p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title">키트 결과 입력</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">아래 슬라이더를 움직여 키트 용액의 최종 색상과 가장 유사하게 맞춰주세요.</p>
+            
+            <div class="max-w-2xl mx-auto text-center">
+                <label for="color-match-slider" class="block text-lg font-bold text-slate-700 mb-4">키트 색상과 일치하도록 조절</label>
+                <div class="relative h-12 w-full rounded-lg overflow-hidden mb-8">
+                    <div class="absolute inset-0 color-slider-background"></div>
+                    <input id="color-match-slider" type="range" min="0" max="100" value="0" class="absolute inset-0 w-full h-full appearance-none bg-transparent cursor-pointer">
+                </div>
+                
+                <div class="flex flex-col items-center justify-center">
+                    <p class="text-xl font-bold text-slate-700 mb-2">현재 선택된 색상:</p>
+                    <div id="selected-color-box" class="w-24 h-24 rounded-lg border-4 border-slate-200 transition-colors duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="alt-check" class="bg-white p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title">예상 ALT 수치 확인</h2>
+            <p class="text-center text-slate-600 max-w-2xl mx-auto mb-12">선택하신 색상에 따른 예상 ALT 수치와 그 해석입니다.</p>
+            
+            <div class="max-w-xl mx-auto text-center p-6 bg-slate-100 rounded-lg">
+                <p class="text-2xl md:text-3xl font-bold text-slate-800 mb-4">예상 ALT 수치: <span id="estimated-alt" class="text-teal-700">--</span> U/L</p>
+                <div id="alt-interpretation" class="text-xl font-bold text-slate-700 mb-4"></div>
+                <p id="alt-description" class="text-slate-600"></p>
+            </div>
+
+            <div class="mt-12 p-6 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800 rounded-lg max-w-2xl mx-auto">
+                <p class="font-bold text-lg mb-2">⚠️ 중요 안내 ⚠️</p>
+                <p class="text-sm">본 키트 및 웹페이지를 통한 ALT 수치 측정 결과는 **자가 테스트용 참고 자료**입니다. 어떠한 의학적 진단이나 치료의 근거로 사용될 수 없습니다. 정확한 건강 상태 진단 및 간 질환 여부 확인은 반드시 **전문 의료기관을 방문하여 의사의 진찰과 정밀 검사를 통해 확인**하셔야 합니다. 본 키트의 결과에만 의존하여 자가 진단하거나 치료를 시작하지 마십시오.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white text-center py-8 mt-16">
+        <p>&copy; 2025 ALT 간 수치 측정 키트 프로젝트. All Rights Reserved.</p>
+        <p class="text-sm text-slate-400 mt-2">본 웹페이지는 교육 및 정보 제공을 목적으로 제작되었습니다.</p>
+    </footer>
+
+    <script>
+        // Define the color points for interpolation
+        // Each array is [R, G, B]
+        // Adjusted to be brighter and more distinct based on user feedback and provided image.
+        const colorPoints = [
+            [80, 80, 180],  // 0% - Blue-ish (Original reagent color, low ALT) - Brighter
+            [100, 40, 150], // ~25% - More vibrant purple
+            [150, 60, 160], // ~50% - Pinker purple
+            [190, 70, 150], // ~75% - Rosy purple
+            [220, 80, 130]  // 100% - Red-ish (High ALT) - Brighter red-purple
+        ];
+
+        function interpolateColor(normalizedRatio) {
+            const numSegments = colorPoints.length - 1;
+            const segmentIndex = Math.min(Math.floor(normalizedRatio * numSegments), numSegments - 1);
+            const segmentRatio = (normalizedRatio * numSegments) - segmentIndex;
+
+            const startColor = colorPoints[segmentIndex];
+            const endColor = colorPoints[segmentIndex + 1];
+
+            const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * segmentRatio);
+            const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * segmentRatio);
+            const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * segmentRatio);
+
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function updateAltResult() {
+            const slider = document.getElementById('color-match-slider');
+            const sliderValue = parseInt(slider.value); // 0 to 100
+
+            // Normalize slider value to 0-1 range
+            const normalizedRatio = sliderValue / 100;
+
+            // Map normalized ratio to ALT value (0 to 200 U/L)
+            const minAlt = 0;
+            const maxAlt = 200;
+            const estimatedAlt = minAlt + (maxAlt - minAlt) * normalizedRatio;
+
+            document.getElementById('estimated-alt').innerText = estimatedAlt.toFixed(0);
+
+            // Update color box using the new interpolation logic
+            document.getElementById('selected-color-box').style.backgroundColor = interpolateColor(normalizedRatio);
+
+            // Interpret ALT level (example ranges for 0-200 U/L)
+            const interpretationEl = document.getElementById('alt-interpretation');
+            const descriptionEl = document.getElementById('alt-description');
+
+            if (estimatedAlt <= 40) { // Assuming 40 U/L is upper normal limit
+                interpretationEl.innerText = '정상 범위';
+                interpretationEl.className = 'text-xl font-bold text-green-600 mb-4';
+                descriptionEl.innerText = 'ALT 수치가 정상 범위에 있습니다. 일반적으로 건강한 간 기능을 나타냅니다.';
+            } else if (estimatedAlt <= 80) { // Mildly elevated
+                interpretationEl.innerText = '경계성 상승';
+                interpretationEl.className = 'text-xl font-bold text-yellow-600 mb-4';
+                descriptionEl.innerText = 'ALT 수치가 약간 높습니다. 정기적인 관찰이 필요하며, 생활 습관을 점검해 보세요.';
+            } else if (estimatedAlt <= 150) { // Moderately elevated
+                interpretationEl.innerText = '높음';
+                interpretationEl.className = 'text-xl font-bold text-orange-600 mb-4';
+                descriptionEl.innerText = 'ALT 수치가 높습니다. 간 건강에 주의가 필요하며, 전문 의료기관 방문을 고려해 보세요.';
+            } else { // Significantly elevated
+                interpretationEl.innerText = '매우 높음';
+                interpretationEl.className = 'text-xl font-bold text-red-600 mb-4';
+                descriptionEl.innerText = 'ALT 수치가 매우 높습니다. 즉시 전문 의료기관을 방문하여 정밀 검사를 받으시기 바랍니다.';
+            }
+        }
+
+        window.onload = function() {
+            const slider = document.getElementById('color-match-slider');
+            slider.addEventListener('input', updateAltResult);
+            // Initial update
+            updateAltResult();
+        };
+    </script>
+</body>
+</html>
